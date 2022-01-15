@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <h2 style="text-align: center"> Range Field </h2>
+            <div style="margin: 1px;"> <b>Number of Scores:</b>
+                <input id="scores" type="range" oninput="showRange()" name="vol" min="1" max="15">
+            </div>
+            <span id="value"> </span>
+            <br><br>
+            <div id="firstResult"></div>
+            <br>
+            <button id="average" onclick="showAverage() "> Show Average: </button>
+            <br><br>
+            <div id="secondResult"> </div>
+        </div>
+    </div>
+    <script>
+        function showRange() {
+            let slider = document.querySelector('#value');
+            let scoreSlider = document.querySelector('#scores');
+            slider.innerHTML = scoreSlider.value
+
+            let count = " "
+            for (let i = 0; i < Number(slider.innerHTML); i++) {
+                count += `<input type="number" placeholder="Score # ${1 + i}"> <br>`;
+            }
+            document.getElementById('firstResult').innerHTML = count
+        }
+
+        function showAverage() {
+            let sum = 0
+            let textBoxes = document.querySelectorAll('input[type="number"]')
+            for (let i = 0; i < textBoxes.length; i++) {
+                let textBoxValue = Number(textBoxes[i].value)
+                sum += textBoxValue
+            }
+
+            let average = sum / textBoxes.length
+            let result = `Average is: <strong> ${average.toFixed(2)} </strong> <br> <br>`;
+
+            result += `Scores that are above average:`
+            result += '<ul>'
+            for (let i = 0; i < textBoxes.length; i++) {
+                let values = Number(textBoxes[i].value)
+                if (values > average) {
+                    result += `<strong> ${values} </strong> <br>`
+                }
+            }
+            result += '</ul>'
+            document.getElementById('secondResult').innerHTML = result
+        }
+    </script>
+</body>
+
+</html>

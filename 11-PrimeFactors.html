@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <h2 style="text-align: center"> Prime Factors </h2>
+            <div style="margin: 1px;">
+                <div>
+                    <input id='input' type="number" oninput="isNumPrime()">
+                </div>
+            </div>
+            <br>
+            <div onchange="isNumPrime()"> </div>
+            <div id="result"></div>
+        </div>
+        <script>
+            function primeFactors(n) {
+                if (n === 1) {
+                    return false;
+                } else if (n === 2) {
+                    return true;
+                } else {
+                    for (let x = 2; x < n; x++) {
+                        if (n % x === 0) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
+            function isNumPrime() {
+                let primeArray = [];
+                let num = document.querySelector('#input').value;
+
+                if (num < 2) {
+                    document.querySelector('#result').innerHTML = alert(`Error! Try to input integer >= 2.`)
+                    return;
+                }
+                else {
+                    for (let x = 1; x <= num; x++) {
+                        if (num % x === 0 && primeFactors(x) === true) {
+                            primeArray.push(x);
+                        }
+                    }
+
+                    let res = "";
+                    res += primeArray[0].toString();
+                    for (let x = 1; x < primeArray.length; x++) {
+                        res += " x " + primeArray[x].toString();
+                    }
+
+                    document.querySelector('#result').innerHTML = `The prime factor/s of <strong> ${num} </strong> = <strong> ${res} </strong>`
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>

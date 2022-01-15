@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            text-align: center;
+            margin: 0 20%;
+        }
+
+        #leni-graph {
+            background-color: #f86bd5;
+            color: white;
+            width: 0;
+            transition: all 2s ease;
+        }
+
+        #bbm-graph {
+            background-color: #f54b4b;
+            color: white;
+            width: 0;
+            transition: all 2s ease;
+        }
+
+        #pacquiao-graph {
+            background-color: #f5ae43;
+            color: #fffefe;
+            width: 0;
+            transition: all 2s ease;
+        }
+
+        #isko-graph {
+            background-color: #637af8;
+            color: white;
+            width: 0;
+            transition: all 2s ease;
+        }
+
+        button {
+            border: none;
+            padding: 1em;
+            border-radius: 2em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <h2 style="text-align: center"> Total Number of Voters: </h2>
+            <div id="totalVotes"> </div>
+            <div>
+                <h2> Leni: </h2>
+                <button id="leni" class="votebtn">Vote for Leni! </button>
+                <div id="leni-graph"></div>
+            </div>
+            <div>
+                <h2> BBM: </h2>
+                <button id="bbm" class="votebtn"> Vote for BBM! </button>
+                <div id="bbm-graph"></div>
+            </div>
+            <div>
+                <h2> Pacquiao: </h2>
+                <button id="pacquiao" class="votebtn"> Vote for Pacquiao! </button>
+                <div id="pacquiao-graph"></div>
+            </div>
+            <div>
+                <h2> Isko: </h2>
+                <button id="isko" class="votebtn"> Vote for Isko! </button>
+                <div id="isko-graph"></div>
+            </div>
+        </div>
+        <script>
+            if (!localStorage.key("leni") && !localStorage.key("bbm") && !localStorage.key("pacquiao") && !localStorage.key("isko")) {
+                localStorage.setItem('leni', 0);
+                localStorage.setItem('bbm', 0);
+                localStorage.setItem('pacquiao', 0);
+                localStorage.setItem('isko', 0);
+            };
+            let candidate = [
+                {
+                    name: "Leni",
+                    color: "Pink",
+                    votes: localStorage.getItem("leni")
+                },
+                {
+                    name: "BBM",
+                    color: "Red",
+                    votes: localStorage.getItem("bbm")
+                },
+                {
+                    name: "Pacquiao",
+                    color: "Yellow",
+                    votes: localStorage.getItem("pacquiao")
+                },
+                {
+                    name: "Isko",
+                    color: "Blue",
+                    votes: localStorage.getItem("isko")
+                },
+                {
+                    totalvotes() {
+                        return parseInt(localStorage.getItem("leni")) + parseInt(localStorage.getItem("bbm")) + parseInt(localStorage.getItem("pacquiao")) + parseInt(localStorage.getItem("isko"));
+                    }
+                }
+            ];
+            let leniButton = document.getElementById("leni");
+            leniButton.addEventListener('click', e => {
+                localStorage.setItem('leni', ++candidate[0].votes);
+            });
+
+            let bbmButton = document.getElementById("bbm");
+            bbmButton.addEventListener('click', e => {
+                localStorage.setItem('bbm', ++candidate[1].votes);
+            });
+
+            let pacquiaoButton = document.getElementById("pacquiao");
+            pacquiaoButton.addEventListener('click', e => {
+                localStorage.setItem('pacquiao', ++candidate[2].votes);
+            });
+
+            let iskoButton = document.getElementById("isko");
+            iskoButton.addEventListener('click', e => {
+                localStorage.setItem('isko', ++candidate[3].votes);
+            });
+
+            let votebuttons = Array.from(document.getElementsByClassName("votebtn"));
+            let totalvotes = document.getElementById("totalVotes");
+            for (let i = 0; i < votebuttons.length; i++) {
+                votebuttons[i].addEventListener('click', e => {
+                    addLoadStat();
+                })
+            }
+
+            function addLoadStat() {
+                totalvotes.innerText = candidate[4].totalvotes();
+
+                let percentLeniVote = (((candidate[0].votes / candidate[4].totalvotes()) * 100).toFixed(2) + "%");
+                let lenivotes = document.getElementById("leni-graph");
+                lenivotes.style.setProperty('width', `calc(${percentLeniVote})`);
+                lenivotes.innerText = percentLeniVote;
+
+                let percentBBMVote = (((candidate[1].votes / candidate[4].totalvotes()) * 100).toFixed(2) + "%");
+                let bbmvotes = document.getElementById("bbm-graph");
+                bbmvotes.style.setProperty('width', `calc(${percentBBMVote})`);
+                bbmvotes.innerText = percentBBMVote;
+
+                let percentPacquiaoVote = (((candidate[2].votes / candidate[4].totalvotes()) * 100).toFixed(2) + "%");
+                let pacquiaovotes = document.getElementById("pacquiao-graph");
+                pacquiaovotes.style.setProperty('width', `calc(${percentPacquiaoVote})`);
+                pacquiaovotes.innerText = percentPacquiaoVote;
+
+                let percentIskoVote = (((candidate[3].votes / candidate[4].totalvotes()) * 100).toFixed(2) + "%");
+                let iskovotes = document.getElementById("isko-graph");
+                iskovotes.style.setProperty('width', `calc(${percentIskoVote})`);
+                iskovotes.innerText = percentIskoVote;
+            }
+            addLoadStat();
+        </script>
+    </div>
+</body>
+
+</html>

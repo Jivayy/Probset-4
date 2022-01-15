@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container1 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container1">
+        <div>
+            <div>
+                <h2 style="text-align: center"> GPA </h2>
+                <b> Number of Subjects: </b>
+                <input style="text-align: center;" id="inputs" type="range" oninput="gridValue()" min="1" max="15">
+            </div>
+            <div id="value"></div>
+            <br>
+            <div id="firstResult"> </div>
+            <br>
+            <table id="grid"> </table>
+            <div>
+                <button onclick="getGpa()"> Show GPA </button>
+            </div>
+            <br>
+            <div id="secondResult"></div>
+            <br>
+            <div id="thirdResult"></div>
+            <br>
+        </div>
+    </div>
+    <script>
+        function gridValue() {
+            let slider = document.querySelector('#value');
+            let scoreSlider = document.querySelector('input[type="range"]');
+            let grid = document.querySelector('#grid');
+            slider.innerHTML = scoreSlider.value
+
+            let grades = ['Grade', 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 5];
+            let options = grades.map(grade => `<option value="${grade}"> ${grade} </option>`);
+
+            let count = " ";
+            for (let i = 1; i <= Number(slider.innerHTML); i += 1) {
+                count += ` 
+                <tr>
+                    <td>
+                        <input class="subject" placeholder="Subject">
+                    </td>
+                    <td>
+                        <select class="grade"> 
+                            ${options} 
+                        </select>
+                    </td>
+                    <td>
+                        <input class="credit" placeholder="Credit">
+                    </td>
+                </tr>
+                <br>`
+            }
+            document.getElementById('firstResult').innerHTML = count
+        }
+
+        function getGpa() {
+            let gradesTotal = 0;
+            let creditsTotal = 0;
+            let grades = document.getElementsByClassName('grade');
+            let credits = document.getElementsByClassName('credit');
+
+            let subjects = document.getElementsByClassName('subject');
+            let checkScholarshipBoolean = false;
+            let failedSubjectsArr = [];
+
+
+            for (let i = 0; i < credits.length; i++) {
+                if (grades[i].value < 2.25) {
+                    checkScholarshipBoolean = true;
+                }
+                else {
+                    failedSubjectsArr.push(subjects[i].value);
+                    failedSubjectsArr.push("(" + grades[i].value + ")");
+                }
+
+                gradesTotal += grades[i].value * credits[i].value;
+                creditsTotal += parseInt(credits[i].value);
+            }
+
+            let gpaFinal = gradesTotal / creditsTotal;
+
+            gpaValue = `GPA is: <strong> ${gpaFinal.toFixed(2)} </strong>`
+            document.getElementById('secondResult').innerHTML = gpaValue
+
+            if (checkScholarshipBoolean === true) {
+                document.getElementById('thirdResult').innerHTML = "<b> Congratulations, you are qualified to a scholarship! <b>"
+            }
+            else {
+                document.getElementById('thirdResult').innerHTML = "You failed in these subjects: <b>" + failedSubjectsArr.join(" ") + "</b>";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

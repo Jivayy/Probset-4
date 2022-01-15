@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <h2 style="text-align: center"> 12 Days of Christmas </h2>
+            <div style="margin: 1px; font-style: italic;">
+                <button id="days" onclick="showLyrics()"> Show Lyrics </button>
+                <br><br>
+            </div>
+            <div style="text-align: center;">
+                <div id="result"> </div>
+            </div>
+            <div id="gifts">
+            </div>
+            <div id="giftsInputDiv"> </div>
+            <br>
+            <button id="myLyrics" onclick="myLyrics()"> My Own Lyrics </button>
+            <br><br>
+            <div style="text-align: center;">
+                <div id="ownResult"> </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        function showLyrics() {
+            let button = document.querySelector('#days');
+            let resultDiv = document.getElementById('result');
+
+            let days = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'nineth', 'tenth', 'eleventh', 'twelveth'];
+            let gifts = ['A song for the Christmas tree', 'Two candy canes', 'Three boughs of holly', 'Four colored lights', 'A shining star', 'Little silver bells', 'Candles a-glowing', 'Gold and silver tensil', 'A gurdian angel', 'Some mistletoe', 'Gifts for one and all', 'All their good wishes'];
+
+            let giftReceived = ""
+            for (let i = 0; i < 12; i++) {
+                if (i === 0) {
+                    line = '. <br>';
+                    giftReceived = gifts[i] + line + giftReceived;
+                    resultDiv.innerHTML += `On the <strong> ${days[i]} </strong> day of Christmas <br> My good friends brought to me <br> <strong> ${giftReceived} </strong> <br>`
+                } else if (i === 1) {
+                    line = ' and <br>'
+                    giftReceived = gifts[i] + line + giftReceived;
+                    resultDiv.innerHTML += `On the <strong> ${days[i]} </strong> day of Christmas <br> My good friends brought to me <br> <strong> ${giftReceived} </strong> <br>`
+                } else {
+                    line = ', <br>'
+                    giftReceived = gifts[i] + line + giftReceived
+                    resultDiv.innerHTML += `On the <strong> ${days[i]} </strong> day of Christmas <br> My good friends brought to me <br> <strong> ${giftReceived} </strong> <br>`
+                }
+            }
+        }
+        let giftsInput = document.querySelectorAll('#gifts');
+        for (let i = 0; i <= 12; i++) {
+            giftsInputDiv.innerHTML += `<input id="giftsInput" type="text" placeholder="Input gift #${i + 1}..."> </br>`
+        }
+        function myLyrics() {
+            let giftsInputs = document.querySelectorAll('input[type="text"]');
+            let button = document.querySelector('#myLyrics');
+            let ownResult = document.getElementById('ownResult');
+
+            let days = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'nineth', 'tenth', 'eleventh', 'twelveth'];
+
+            let giftReceived = ""
+            for (let i = 0; i < 12; i++) {
+                if (i === 0) {
+                    line = '. <br>';
+                    giftReceived = giftsInputs[i + 1].value + line + giftReceived;
+                    ownResult.innerHTML += `On the <strong> ${days[i]} </strong> day of Christmas <br> My good friends brought to me <br> <strong> ${giftReceived} </strong> <br>`
+                } else if (i === 1) {
+                    line = ' and <br>'
+                    giftReceived = giftsInputs[i + 1].value + line + giftReceived;
+                    ownResult.innerHTML += `On the <strong> ${days[i]} </strong> day of Christmas <br> My good friends brought to me <br> <strong> ${giftReceived} </strong> <br>`
+                } else {
+                    line = ', <br>'
+                    giftReceived = giftsInputs[i + 1].value + line + giftReceived
+                    ownResult.innerHTML += `On the <strong> ${days[i]} </strong> day of Christmas <br> My good friends brought to me <br> <strong> ${giftReceived} </strong> <br>`
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

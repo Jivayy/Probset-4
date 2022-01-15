@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <h2 style="text-align: center"> Range Field </h2>
+            <div style="margin: 1px;"> <b>Slider</b>
+                <input id="scores" type="range" oninput="showRange()" name="vol" min="1" max="15">
+            </div>
+            <span id="value"> </span>
+            <br><br>
+            <div id="firstResult"></div>
+            <br>
+            <button id="average" onclick="highestNumber() "> Highest Number: </button>
+            <br><br>
+            <div id="secondResult"> </div>
+        </div>
+        <script>
+            function showRange() {
+                let slider = document.querySelector('#value');
+                let scoreSlider = document.querySelector('#scores');
+                slider.innerHTML = scoreSlider.value
+
+                let count = " "
+                for (let i = 0; i < Number(slider.innerHTML); i++) {
+                    count += `<input type = "number" placeholder = "Input Number"> <br>`;
+                }
+                document.getElementById('firstResult').innerHTML = count
+            }
+            function highestNumber() {
+                let textBoxes = document.querySelectorAll('input[type="number"]');
+
+                let highestNumber = 0
+                for (let i = 0; i < textBoxes.length; i++) {
+                    let textBoxValue = Number(textBoxes[i].value)
+                    if (textBoxValue > highestNumber) {
+                        highestNumber = textBoxValue
+                    }
+                }
+                highestNumber = `Highest number is <strong>${highestNumber}</strong>.`
+                document.getElementById('secondResult').innerHTML = highestNumber
+            }
+        </script>
+    </div>
+</body>
+
+</html>

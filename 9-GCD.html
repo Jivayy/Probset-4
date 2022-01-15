@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <h2 style="text-align: center"> Greatest Common Divisor (GCD) </h2>
+            <div style="margin: 1px;">
+                <div>
+                    <input id='firstNumber' type="number" oninput="getGCD()" placeholder="Please input first number">
+                    <input id='secondNumber' type="number" oninput="getGCD()" placeholder="Please input second number">
+                </div>
+            </div>
+            <br>
+            <div onchange="getGCD()"> </div>
+            <div id="results"></div>
+        </div>
+        <script>
+            function getGCD() {
+                let num1 = document.querySelector('#firstNumber').value;
+                let num2 = document.querySelector('#secondNumber').value;
+
+                let gcd = " ";
+                for (let i = 1; i <= num1 && i <= num2; ++i) {
+                    if (num1 % i === 0 && num2 % i === 0)
+                        gcd = i;
+                }
+
+                document.querySelector('#results').innerHTML = `GCD of <strong>${num1}</strong> and <strong>${num2}</strong> is <strong> ${gcd}.`
+            }
+        </script>
+    </div>
+</body>
+
+</html>

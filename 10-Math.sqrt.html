@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <h2 style="text-align: center"> Math Square Root </h2>
+            <div style="margin: 1px;">
+                <div>
+                    <input id='number' type="number" oninput="sqrt()" placeholder="Please input number">
+                </div>
+            </div>
+            <br>
+            <div onchange="sqrt()"> </div>
+            <div id="result"></div>
+            <script>
+                function sqrt() {
+                    let num = document.querySelector('#number').value;
+                    let x1 = Number(num) / 2;
+
+                    let x2 = "";
+                    for (let i = 0; i < 100; i++) {
+                        x2 = x1 - (x1 * x1 - num) / (x1 * 2);
+                        x1 = x2;                       
+                    }
+                    document.getElementById('result').innerHTML = x1;
+                } 
+            </script>
+        </div>
+</body>
+
+</html>
